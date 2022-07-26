@@ -1,10 +1,10 @@
 <br />
 <div align="center">
-    <a href="https://asternews.vercel.app/">Просмотреть демо</a>
+    <a href="https://todolist-pp.vercel.app/">Просмотреть демо</a>
     ·
-    <a href="https://github.com/Whitelistedd/aster-news/issues">Сообщить об ошибке</a>
+    <a href="https://github.com/Whitelistedd/todo-app/issues">Сообщить об ошибке</a>
     ·
-    <a href="https://github.com/Whitelistedd/aster-news/issues">Функция запроса</a>
+    <a href="https://github.com/Whitelistedd/todo-app/issues">Функция запроса</a>
   </p>
 </div>
 
