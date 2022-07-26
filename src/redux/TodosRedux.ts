@@ -9,7 +9,7 @@ interface initialStateTypes {
 const initialState : initialStateTypes = {
   todos: [{id: 0, name: "Тестовое задание", completed: false},{id: 1, name: "Прекрасный код", completed: true},{id: 2, name: "Покрытие тестами", completed: false}],
   filter: "All",
-  initialTodoID: 0,
+  initialTodoID: 2,
 }
 
 const TodosList = createSlice({

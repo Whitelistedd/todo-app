@@ -1,4 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -11,26 +10,20 @@ import { devices } from './MediaQueries';
 function App() {
 
   const [listHidden,setListHidden] = useState(false)
-  const [displayAddTask,setDisplayAddTask] = useState(false)
   const [filteredList,setFilteredList] = useState<{id: number,name: string,completed: boolean}[]>([])
 
   const handleHideList = () => {
     setListHidden(prev => prev === true ? false : true)
   }
 
-  const handleDisplayAddTask = () => {
-    setDisplayAddTask(displayAddTask ? false : true)
-  }
-
   return (
     <Container>
-      <AddTodo handleDisplayAddTask={handleDisplayAddTask} displayAddTask={displayAddTask} setDisplayAddTask={setDisplayAddTask} />
       <Title>todos</Title>
       <TodoContainer>
+      <AddTodo />
         <TodosTitleWrap >
           <KeyboardArrowDownIcon onClick={() => handleHideList()} sx={{transition: "500ms 0s ease-in-out",transform: `rotate(${listHidden && "-90deg"})`}} />
           <TodosTitle >What needs to be done?</TodosTitle>
-          <AddIcon onClick={() => handleDisplayAddTask()} />
         </TodosTitleWrap>
         <Todos filteredList={filteredList} setFilteredList={setFilteredList} listHidden={listHidden} />
         <TodosFooter todosLeft={filteredList.length} />

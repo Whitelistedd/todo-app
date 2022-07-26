@@ -1,85 +1,84 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import AddIcon from '@mui/icons-material/Add'
 
-import { AppDispatch } from '../../redux/store';
-import { addTask } from '../../redux/TodosRedux';
+import { AppDispatch } from '../../redux/store'
+import { addTask } from '../../redux/TodosRedux'
+import { Alert, Snackbar } from '@mui/material'
 
-interface Props {
-    displayAddTask: boolean,
-    setDisplayAddTask: (boolean : boolean) => void,
-    handleDisplayAddTask: () => void,
-}
+export const AddTodo: React.FC = () => {
+  const dispatch = AppDispatch()
+  const [inputValue, setInputValue] = useState('')
+  const [error, setError] = useState('')
 
-export const AddTodo : React.FC<Props> = ({handleDisplayAddTask,displayAddTask,setDisplayAddTask}) => {
+  const handleClose = () => {
+    setError('')
+  }
 
-    const dispatch = AppDispatch()
-    const [inputValue,setInputValue] = useState("")
-
-    const handleAddTask = () => {
-        setDisplayAddTask(false)
-        setInputValue("")
-        dispatch(addTask(inputValue))
+  const handleAddTask = () => {
+    if (inputValue) {
+      setError('')
+      setInputValue('')
+      dispatch(addTask(inputValue))
+    } else {
+      setError('please enter a task')
     }
+  }
 
   return (
-    <Container displayAddTask={displayAddTask}>
-        <Wrap>
-            <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="Todo..." />
-            <Submit onClick={() => handleAddTask()} >ADD TASK</Submit>
-            <Cancel onClick={() => handleDisplayAddTask()} >CANCEL</Cancel>
-        </Wrap>
+    <Container>
+      <Wrap>
+        <Snackbar
+          open={error ? true : false}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="warning"
+            sx={{ width: '100%' }}
+          >
+            {error}
+          </Alert>
+        </Snackbar>
+        <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Todo..."
+        />
+        <Submit onClick={() => handleAddTask()} />
+      </Wrap>
     </Container>
   )
 }
 
-const Cancel = styled.button`
-    border: 2px solid #e94848;
-    transition: 200ms ease;
-    &:hover {
-        background-color:#e94848;
-    }
-`
-
-const Submit = styled.button`
-    border: 2px solid #66BB6A;
-    transition: 200ms ease;
-    &:hover {
-        background-color: #66BB6A;
-    }
+const Submit = styled(AddIcon)`
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 const Input = styled.input`
-    padding: 1em 2em;
-    border: 2px solid rgb(240,240,240);
-    border-radius: 10px;
+  padding: 1em;
+  border: 1px solid #00000045;
+  width: 100%;
 `
 
 const Wrap = styled.div`
-    background-color: white;
-    display: flex;
-    padding: 2em;
-    gap: 1em;
-    flex-direction: column;
-    max-width: 55%;
-    max-height: 100%;
-    button {
-        padding: 1em;
-        font-weight: 600;
-        border-radius: 10px;
-        background-color: transparent;
-        &:hover {
-            cursor: pointer;
-        }
-    }
+  background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  padding: 0.2em;
 `
 
-const Container = styled.div<{displayAddTask: boolean}>`
-    width: 100vw;
-    display: ${props => props.displayAddTask ? "flex" : "none"};
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    height: 100vh;
-    z-index: 1;
-    background-color: rgb(0,0,0,0.6);
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0.5em;
+  gap: 1em;
+  min-width: 25%;
+  border-top: 1px solid grey;
 `
